@@ -7,14 +7,14 @@ class App extends Component {
         this.state = {
             renderBall: false,
             posi : 0,
-            ballPosition: { left: "0px" }
+            ballPosition: { left: 0 }
         };
         this.renderChoice = this.renderBallOrButton.bind(this)
         this.buttonClickHandler = this.buttonClickHandler.bind(this)
     };
 
     buttonClickHandler() {
-   
+        this.setState({renderBall:true})
    }
     renderBallOrButton() {
 		if (this.state.renderBall) {
@@ -26,7 +26,13 @@ class App extends Component {
 
     // bind ArrowRight keydown event
     componentDidMount() {
-      
+        document.body.addEventListener("keydown", (event) => {
+            if (event.keyCode == 39) {
+                this.setState({posi: this.state.posi + 5})
+                this.setState({ballPosition: {left: `${this.state.posi}px`}});
+               
+            }
+        });
     }
 
     render() {
